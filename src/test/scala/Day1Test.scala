@@ -15,7 +15,17 @@ class Day1Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day1.part1(inputData) shouldBe None
+      Day1.part1(inputData) shouldBe Some(926464)
+    }
+  }
+
+  "part2" should {
+    "pass example" in {
+      Day1.part2(exampleData) shouldBe Some(241861950)
+    }
+
+    "produce result" in {
+      Day1.part2(inputData) shouldBe Some(65656536)
     }
   }
 }
