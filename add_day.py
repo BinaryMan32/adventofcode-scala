@@ -7,7 +7,11 @@ IMPL_TEMPLATE = string.Template('''\
 package com.fivebytestudios.wildfreddy
 
 object ${obj_name} {
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
+    0
+  }
+
+  def part2(input: List[String]): Long = {
     0
   }
 }
@@ -33,6 +37,16 @@ class ${obj_name}Test extends AnyWordSpec with Matchers with ResourceHelpers {
 
     "produce result" in {
       ${obj_name}.part1(inputData) shouldBe 0
+    }
+  }
+
+  "part2" should {
+    "pass example" in {
+      ${obj_name}.part2(exampleData) shouldBe 0
+    }
+
+    "produce result" in {
+      ${obj_name}.part2(inputData) shouldBe 0
     }
   }
 }
