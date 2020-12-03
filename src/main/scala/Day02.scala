@@ -1,6 +1,6 @@
 package com.fivebytestudios.wildfreddy
 
-object Day2 {
+object Day02 {
   val regex = raw"(\d+)-(\d+) (\w): (\w+)$$".r
 
   def part1(input: List[String]): Int = {

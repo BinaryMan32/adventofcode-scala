@@ -1,6 +1,6 @@
 package com.fivebytestudios.wildfreddy
 
-object Day1 {
+object Day01 {
   def part1(input: List[Int]): Option[Int] = {
     input
       .combinations(2)
