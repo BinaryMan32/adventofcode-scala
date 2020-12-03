@@ -4,18 +4,18 @@ import com.fivebytestudios.wildfreddy.helpers.ResourceHelpers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 
-class Day1Test extends AnyWordSpec with Matchers with ResourceHelpers {
-  override val resourcePath = "day1"
+class Day01Test extends AnyWordSpec with Matchers with ResourceHelpers {
+  override val resourcePath = "day01"
   private val exampleData = getResourceLines("example").map(_.toInt)
   private val inputData = getResourceLines("input").map(_.toInt)
 
   "part1" should {
     "pass example" in {
-      Day1.part1(exampleData) shouldBe Some(514579)
+      Day01.part1(exampleData) shouldBe Some(514579)
     }
 
     "produce result" in {
-      Day1.part1(inputData) shouldBe None
+      Day01.part1(inputData) shouldBe None
     }
   }
 }
