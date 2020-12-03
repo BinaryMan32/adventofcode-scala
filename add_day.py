@@ -7,11 +7,11 @@ IMPL_TEMPLATE = string.Template('''\
 package com.fivebytestudios.wildfreddy
 
 object ${obj_name} {
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     0
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     0
   }
 }
