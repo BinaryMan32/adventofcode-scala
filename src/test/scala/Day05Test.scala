@@ -16,13 +16,13 @@ class Day05Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day05.part1(inputData) shouldBe 0
+      Day05.part1(inputData) shouldBe 801
     }
   }
 
   "part2" should {
     "produce result" in {
-      Day05.part2(inputData) shouldBe 0
+      Day05.part2(inputData) shouldBe 597
     }
   }
 }
