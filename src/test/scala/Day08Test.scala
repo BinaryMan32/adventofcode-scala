@@ -16,7 +16,7 @@ class Day08Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day08.part1(inputData) shouldBe 0
+      Day08.part1(inputData) shouldBe 1584
     }
   }
 
@@ -26,7 +26,7 @@ class Day08Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day08.part2(inputData) shouldBe 0
+      Day08.part2(inputData) shouldBe 920
     }
   }
 }
