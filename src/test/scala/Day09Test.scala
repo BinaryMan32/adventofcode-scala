@@ -16,7 +16,7 @@ class Day09Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day09.part1(inputData, preambleLength = 25) shouldBe None
+      Day09.part1(inputData, preambleLength = 25) shouldBe Some(18272118)
     }
   }
 
@@ -26,7 +26,7 @@ class Day09Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day09.part2(inputData, preambleLength = 25) shouldBe None
+      Day09.part2(inputData, preambleLength = 25) shouldBe Some(2186361)
     }
   }
 }
