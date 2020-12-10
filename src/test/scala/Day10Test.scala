@@ -27,7 +27,7 @@ class Day10Test extends AnyWordSpec with Matchers with ResourceHelpers {
 
     "produce result" in {
       val jolts = Day10.part1(inputData)
-      jolts(1) * jolts(3) shouldBe 0
+      jolts(1) * jolts(3) shouldBe 1836
     }
   }
 
@@ -41,7 +41,7 @@ class Day10Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day10.part2(inputData) shouldBe 0
+      Day10.part2(inputData) shouldBe 43406276662336L
     }
   }
 }
