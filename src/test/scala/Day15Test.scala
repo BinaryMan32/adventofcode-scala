@@ -20,7 +20,7 @@ class Day15Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day15.part1(List(8, 13, 1, 0, 18, 9)) shouldBe 0
+      Day15.part1(List(8, 13, 1, 0, 18, 9)) shouldBe 755
     }
   }
 
@@ -36,7 +36,7 @@ class Day15Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day15.part2(List(8, 13, 1, 0, 18, 9)) shouldBe 0
+      Day15.part2(List(8, 13, 1, 0, 18, 9)) shouldBe 11962
     }
   }
 }
