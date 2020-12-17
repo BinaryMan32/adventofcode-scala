@@ -45,6 +45,12 @@ class Day16Test extends AnyWordSpec with Matchers with ResourceHelpers {
 
   "part2" should {
     "pass example" in {
+      Day16.parseInput(example2Data)
+        .fieldMapping shouldBe Map(
+        "class" -> 1,
+        "row" -> 0,
+        "seat" -> 2
+      )
     }
 
     "produce result" in {
