@@ -16,7 +16,7 @@ class Day18Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day18.part1(inputData) shouldBe 0
+      Day18.part1(inputData) shouldBe 3647606140187L
     }
   }
 
@@ -26,7 +26,7 @@ class Day18Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day18.part2(inputData) shouldBe 0
+      Day18.part2(inputData) shouldBe 323802071857594L
     }
   }
 }
