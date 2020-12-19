@@ -93,7 +93,7 @@ class Day19Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day19.part1(inputData) shouldBe 0
+      Day19.part1(inputData) shouldBe 109
     }
   }
 
@@ -103,7 +103,7 @@ class Day19Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day19.part2(inputData) shouldBe 0
+      Day19.part2(inputData) shouldBe 301
     }
   }
 }
