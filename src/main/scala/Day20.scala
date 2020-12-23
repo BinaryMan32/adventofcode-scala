@@ -19,11 +19,11 @@ object Day20 {
     def oriented: TileOrientation =
       TileOrientation(edges, this)
   }
-  case class TileOrientation(edges: List[TileEdge], data: Tile) {
-    def id: Int = data.id
+  case class TileOrientation(edges: List[TileEdge], tile: Tile) {
+    def id: Int = tile.id
     def flipped: TileOrientation = copy(edges = edges.map(_.flipped).reverse)
     def rotated: TileOrientation = copy(edges = edges.last :: edges.dropRight(1))
-    def rotations: List[TileOrientation] = Iterator.iterate(this)(_.rotated).take(4).distinct.toList
+    def rotations: List[TileOrientation] = Iterator.iterate(this)(_.rotated).take(4).toList
     def orientations: List[TileOrientation] = rotations.flatMap(
       orientation => List(orientation, orientation.flipped)
     )
