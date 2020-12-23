@@ -2,20 +2,17 @@ package com.fivebytestudios.wildfreddy
 
 object Day20 {
   private val debug = false
-  case class TileEdge(edge: Int) {
-    def flipped: TileEdge =
-      TileEdge(
-        (0 to 9).map(bit => ((edge >> (9 - bit)) & 1) << bit).reduce(_ | _)
-      )
+  case class TileEdge(edge: String) {
+    def flipped: TileEdge = TileEdge(edge.reverse)
   }
-  case class Tile(id: Int, data: List[Int]) {
-    private def column(bit: Int): Int =
-      data.map(r => (r >> bit) & 1).zipWithIndex.map{case (b, i) => b << (9 - i)}.reduce(_ | _)
+  case class Tile(id: Int, data: List[String]) {
+    private def column(c: Int): String =
+      data.map(_(c)).mkString
     def edges: List[TileEdge] = List(
       TileEdge(data.head),
-      TileEdge(column(0)),
+      TileEdge(column(9)),
       TileEdge(data.last).flipped,
-      TileEdge(column(9)).flipped
+      TileEdge(column(0)).flipped
     )
     def allPossibleEdges: List[TileEdge] =
       edges ++ edges.map(_.flipped)
@@ -151,8 +148,6 @@ object Day20 {
     Tile(
       id = tileId,
       data = input.tail
-        .map(_.replace('.', '0').replace('#', '1'))
-        .map(line => Integer.parseInt(line, 2))
     )
   }
 
