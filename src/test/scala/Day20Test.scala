@@ -16,9 +16,21 @@ class Day20Test extends AnyWordSpec with Matchers with ResourceHelpers {
       tile.id shouldBe 2311
       tile.data.size shouldBe 10
       tile.data.last shouldBe "..###..###"
-      tile.edges.map(_.edge) shouldBe List(
+      tile.oriented.edges.map(_.edge) shouldBe List(
         "..##.#..#.", "...#.##..#", "###..###..", ".#..#####."
       )
+      tile.oriented.rotated.data shouldBe
+        """.#..#####.
+          |.#.####.#.
+          |###...#..#
+          |#..#.##..#
+          |#....#.##.
+          |...##.##.#
+          |.#...#....
+          |#.#.##....
+          |##.###.#.#
+          |#..##.#...
+          |""".stripMargin.split("\n")
       val state = Day20.State.initial(List(tile))
       state.assembled((0, 0)).edges.map(_.edge) shouldBe List(
         "..##.#..#.", "...#.##..#", "###..###..", ".#..#####."

@@ -6,23 +6,25 @@ object Day20 {
     def flipped: TileEdge = TileEdge(edge.reverse)
   }
   case class Tile(id: Int, data: List[String]) {
-    private def column(c: Int): String =
-      data.map(_(c)).mkString
-    def edges: List[TileEdge] = List(
+    def oriented: TileOrientation =
+      TileOrientation(data, this)
+  }
+  case class TileOrientation(data: List[String], tile: Tile) {
+    val edges: List[TileEdge] = List(
       TileEdge(data.head),
-      TileEdge(column(9)),
-      TileEdge(data.last).flipped,
-      TileEdge(column(0)).flipped
+      TileEdge(data.map(_.last).mkString),
+      TileEdge(data.last.reverse),
+      TileEdge(data.map(_.head).mkString.reverse)
     )
     def allPossibleEdges: List[TileEdge] =
       edges ++ edges.map(_.flipped)
-    def oriented: TileOrientation =
-      TileOrientation(edges, this)
-  }
-  case class TileOrientation(edges: List[TileEdge], tile: Tile) {
     def id: Int = tile.id
-    def flipped: TileOrientation = copy(edges = edges.map(_.flipped).reverse)
-    def rotated: TileOrientation = copy(edges = edges.last :: edges.dropRight(1))
+    def flipped: TileOrientation = copy(data = data.indices.map(i =>
+      data.map(_(i)).mkString
+    ).toList)
+    def rotated: TileOrientation = copy(data = data.indices.map(i =>
+      data.map(_(i)).mkString.reverse
+    ).toList)
     def rotations: List[TileOrientation] = Iterator.iterate(this)(_.rotated).take(4).toList
     def orientations: List[TileOrientation] = rotations.flatMap(
       orientation => List(orientation, orientation.flipped)
@@ -62,7 +64,7 @@ object Day20 {
     def fromTiles(tiles: List[Tile]): EdgeIndex =
       EdgeIndex(
         tiles.flatMap(tile =>
-          tile.allPossibleEdges.distinct.map(_ -> tile)
+          tile.oriented.allPossibleEdges.distinct.map(_ -> tile)
         ).groupMapReduce(_._1){case _ -> t => Set(t)}(_ ++ _)
       )
   }
