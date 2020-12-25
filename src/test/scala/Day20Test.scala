@@ -22,7 +22,7 @@ class Day20Test extends AnyWordSpec with Matchers with ResourceHelpers {
 
   "part2" should {
     "pass example" in {
-      Day20.part2(exampleData) shouldBe 0
+      Day20.part2(exampleData) shouldBe 273
     }
 
     "produce result" in {
