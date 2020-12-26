@@ -22,7 +22,7 @@ class Day21Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day21.part1(inputData) shouldBe 0
+      Day21.part1(inputData) shouldBe 1829
     }
   }
 
@@ -32,7 +32,7 @@ class Day21Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day21.part2(inputData) shouldBe ""
+      Day21.part2(inputData) shouldBe "mxkh,gkcqxs,bvh,sp,rgc,krjn,bpbdlmg,tdbcfb"
     }
   }
 }
