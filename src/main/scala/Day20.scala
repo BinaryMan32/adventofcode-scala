@@ -29,6 +29,9 @@ object Day20 {
     def orientations: List[TileOrientation] = rotations.flatMap(
       orientation => List(orientation, orientation.flipped)
     )
+    def dataWithoutEdges: List[String] =
+      data.tail.dropRight(1)
+        .map(_.tail.dropRight(1))
   }
   case class EdgePattern(pattern: List[Option[TileEdge]]) {
     def matchingRotations(tile: Tile): List[TileOrientation] =
@@ -95,16 +98,35 @@ object Day20 {
       )
     }
 
-    def corners: List[TileOrientation] = {
+    def ranges: ((Int, Int), (Int, Int)) = {
       val rows = assembled.iterator.map{ case (r, _) -> _ => r }.distinct.toList
       val cols = assembled.iterator.map{ case (_, c) -> _ => c }.distinct.toList
+      ((rows.min, rows.max), (cols.min, cols.max))
+    }
+
+    def corners: List[TileOrientation] = {
+      val ((rowsMin, rowsMax), (colsMin, colsMax)) = ranges
       List(
-        (rows.min, cols.min),
-        (rows.min, cols.max),
-        (rows.max, cols.max),
-        (rows.max, cols.min)
+        (rowsMin, colsMin),
+        (rowsMin, colsMax),
+        (rowsMax, colsMax),
+        (rowsMax, colsMin)
       ).map(assembled)
     }
+
+    def assembledTiles: List[List[TileOrientation]] = {
+      val ((rowsMin, rowsMax), (colsMin, colsMax)) = ranges
+      (rowsMin to rowsMax).map(r =>
+        (colsMin to colsMax).map(c =>
+          assembled((r, c))
+        ).toList
+      ).toList
+    }
+
+    def assembledData: List[String] =
+      assembledTiles.flatMap(row =>
+        row.map(_.dataWithoutEdges).transpose.map(_.reduce(_ ++ _))
+      )
   }
   object State {
     def initial(tiles: List[Tile]): State = {
@@ -177,14 +199,87 @@ object Day20 {
     }
   }
 
-  def part1(input: List[String]): Long = {
+  def assembleTiles(input: List[String]): State = {
     val tiles = Utilities.groupLines(input).map(parseTile)
-    search(State.initial(tiles))
-      .map(_.corners.map(_.id.toLong).product)
-      .get
+    search(State.initial(tiles)).get
   }
 
+  case class Pattern(required: Map[(Int, Int), Char], size: (Int, Int)) {
+    def flipped: Pattern = copy(
+      required = required.map{ case (r, c) -> v => (r, size._2 - 1 - c) -> v}
+    )
+    def rotated: Pattern = copy(
+      required = required.map{ case (r, c) -> v => (c, size._1 - 1 - r) -> v},
+      size = size.swap
+    )
+    def rotations: List[Pattern] = Iterator.iterate(this)(_.rotated).take(4).toList
+    def orientations: List[Pattern] = rotations.flatMap(
+      orientation => List(orientation, orientation.flipped)
+    )
+    def visualize: List[String] =
+      (0 until size._1).map(r =>
+        (0 until size._2).map(c =>
+          required.getOrElse((r, c), ' ')
+        ).mkString
+      ).toList
+    def findMatchingSpaces(data: List[String]): Set[(Int, Int)] = {
+      val offsets = for {
+        r <- 0 until (data.size - size._1)
+        c <- 0 until (data.head.length - size._2)
+      } yield (r, c)
+      offsets.map{ case (rb, cb) =>
+        val requiredOffsets = required.map{ case (r, c) -> v =>
+          (rb + r, cb + c) -> v
+        }
+        if (requiredOffsets.forall{case (r, c) -> v => data(r)(c) == v})
+          requiredOffsets.keySet
+        else
+          Set.empty[(Int, Int)]
+      }.reduce(_ ++ _)
+    }
+    def findAllMatchingSpaces(data: List[String]): Set[(Int, Int)] = {
+      orientations
+        .map(_.findMatchingSpaces(data))
+        .reduce(_ ++ _)
+    }
+    def labelMonsters(data: List[String], label: Char = 'O'): List[String] = {
+      val matching = findAllMatchingSpaces(data)
+      data.zipWithIndex.map{case (row, r) =>
+        row.zipWithIndex.map{case (v, c) =>
+          if (matching.contains((r, c)))
+            label
+          else
+            v
+        }.mkString
+      }
+    }
+  }
+  object Pattern {
+    def fromStringList(input: List[String]): Pattern = {
+      val required = for {
+        (row, r) <- input.zipWithIndex
+        (v, c) <- row.zipWithIndex if v != ' '
+      } yield (r, c) -> v
+      Pattern(required=required.toMap, size=(input.size, input.map(_.length).max))
+    }
+  }
+
+  val seaMonsterPatternStringList: List[String] = List(
+    "                  # ",
+    "#    ##    ##    ###",
+    " #  #  #  #  #  #   "
+  )
+  val seaMonsterPattern: Pattern = Pattern.fromStringList(seaMonsterPatternStringList)
+
+  def part1(input: List[String]): Long =
+    assembleTiles(input)
+      .corners.map(_.id.toLong).product
+
   def part2(input: List[String]): Long = {
-    0
+    val assembled = assembleTiles(input).assembledData
+    seaMonsterPattern
+      .labelMonsters(assembled)
+      .flatten
+      .count(_ == '#')
   }
 }

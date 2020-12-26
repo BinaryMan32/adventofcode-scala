@@ -8,6 +8,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class Day20Test extends AnyWordSpec with Matchers with ResourceHelpers {
   override val resourcePath = "day20"
   private val exampleData = getResourceLines("example")
+  private val exampleAssembled = getResourceLines("example_assembled")
   private val inputData = getResourceLines("input")
 
   "part1" should {
@@ -49,6 +50,48 @@ class Day20Test extends AnyWordSpec with Matchers with ResourceHelpers {
   }
 
   "part2" should {
+    "assemble tiles" in {
+      val actual = Day20.assembleTiles(exampleData).assembledData.reverse
+      actual shouldBe exampleAssembled
+    }
+
+    "visualize" in {
+      Day20.seaMonsterPattern.visualize shouldBe Day20.seaMonsterPatternStringList
+    }
+
+    "flip pattern" in {
+      Day20.seaMonsterPattern.flipped.visualize shouldBe List(
+        " #                  ",
+        "###    ##    ##    #",
+        "   #  #  #  #  #  # "
+      )
+    }
+
+    "rotate pattern" in {
+      Day20.seaMonsterPattern.rotated.visualize shouldBe List(
+        " # ",
+        "#  ",
+        "   ",
+        "   ",
+        "#  ",
+        " # ",
+        " # ",
+        "#  ",
+        "   ",
+        "   ",
+        "#  ",
+        " # ",
+        " # ",
+        "#  ",
+        "   ",
+        "   ",
+        "#  ",
+        " # ",
+        " ##",
+        " # "
+      )
+    }
+
     "pass example" in {
       Day20.part2(exampleData) shouldBe 273
     }
