@@ -15,7 +15,7 @@ class Day23Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day23.part1("872495136") shouldBe ""
+      Day23.part1("872495136") shouldBe "27865934"
     }
   }
 
@@ -25,7 +25,7 @@ class Day23Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day23.part2("872495136") shouldBe 0
+      Day23.part2("872495136") shouldBe 170836011000L
     }
   }
 }
