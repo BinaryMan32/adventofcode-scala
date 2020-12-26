@@ -11,12 +11,6 @@ class Day21Test extends AnyWordSpec with Matchers with ResourceHelpers {
   private val inputData = getResourceLines("input")
 
   "part1" should {
-    "parse food" in {
-      Day21.parseFood(exampleData.head) shouldBe Day21.Food(
-        ingredients = Set("mxmxvkd", "kfcds", "sqjhc", "nhms"),
-        allergens = Set("dairy", "fish")
-      )
-    }
     "pass example" in {
       Day21.part1(exampleData) shouldBe 5
     }
