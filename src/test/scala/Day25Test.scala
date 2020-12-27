@@ -16,7 +16,7 @@ class Day25Test extends AnyWordSpec with Matchers with ResourceHelpers {
     }
 
     "produce result" in {
-      Day25.part1(inputData) shouldBe 0
+      Day25.part1(inputData) shouldBe 6011069
     }
   }
 
