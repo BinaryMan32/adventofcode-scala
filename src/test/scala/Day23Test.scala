@@ -1,13 +1,9 @@
 package com.fivebytestudios.wildfreddy
 
-import helpers.ResourceHelpers
-
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class Day23Test extends AnyWordSpec with Matchers with ResourceHelpers {
-  override val resourcePath = "day23"
-  private val inputData = getResourceLines("input")
+class Day23Test extends AnyWordSpec with Matchers {
 
   "part1" should {
     "pass example" in {
